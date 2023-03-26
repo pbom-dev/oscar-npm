@@ -45,3 +45,7 @@ jobs:
           npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+
+      - name: Push bump version
+        run: |
+          git push origin main --follow-tags --force
