@@ -29,21 +29,19 @@ jobs:
       - name: Create content
         run: python ./oscar-repo/helpers/create_pbom_release.py --source ./oscar-repo/content/oscar/ --dest ./src
 
+      - name: build
+        run: | 
+          npm i
+          npm run test
+          
       - name: Bump version minor
         run: | 
           git config user.email "you@ox.security"
           git config user.name "Github Actions"
           npm version minor
 
-      - name: Push bump version
-        run: |
-          git add .
-          git commit -m "CI: bumps version and push content to package.json [skip ci]"
-          git push origin main --follow-tags --force
-
-      # - name: Publish to npm Registry
-      #   run: | 
-      #     npm i
-      #     npm publish
+      - name: Publish to npm Registry
+        run: | 
+          npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
