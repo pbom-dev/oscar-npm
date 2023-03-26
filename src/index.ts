@@ -1,11 +1,11 @@
 import fs from "fs";
 import { FlatTechniques, OscarMatrix, Tactic, Technique } from "./types";
 
-let oscarMatrix: any = [];
-let flatTechniques: any = {};
+let oscarMatrix: OscarMatrix = {};
+let flatTechniques: FlatTechniques = {};
 
 const getOscarMatrix = (): OscarMatrix => {
-  if (oscarMatrix.length === 0) {
+  if (Object.keys(oscarMatrix).length === 0) {
     const data = fs.readFileSync(`${__dirname}/pbom_data/matrix.json`, "utf8");
     oscarMatrix = JSON.parse(data);
   }
@@ -18,7 +18,7 @@ export const getFlatTechniques = (): FlatTechniques => {
     const matrix = getOscarMatrix();
     flatTechniques = Object.keys(matrix).reduce(
       (flatTechnique: FlatTechniques, tacticId: string) => {
-        const tactic = matrix[tacticId];
+        const tactic: Tactic = matrix[tacticId];
 
         tactic.techniques.forEach((technique: Technique) => {
           flatTechnique[technique.id] = technique;
