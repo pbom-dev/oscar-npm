@@ -1,0 +1,20 @@
+# files
+.DS_Store
+.env*
+.vscode
+*.log
+
+# package directories
+node_modules
+jspm_packages
+.build
+/lib/
+
+# Webpack directories
+.webpack
+/.idea/
+
+coverage
+
+#pbom_data is cloned from public osc&r repo on npm-publish action
+src/pbom_data

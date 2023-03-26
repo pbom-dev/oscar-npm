@@ -1,0 +1,52 @@
+# This workflow will run tests using node and then publish a package to GitHub Packages when a release is created
+# For more information see: https://docs.github.com/en/actions/publishing-packages/publishing-nodejs-packages
+
+name: Node.js Package
+
+on:
+  # Runs on pushes targeting the default branch
+  # push:
+  #   branches: ["master"]
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:   
+  publish-npm:
+    runs-on: ubuntu-latest
+    permissions:
+      deployments: write
+      contents: write
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          registry-url: https://registry.npmjs.org/
+
+      - name: Clone public library
+        run: git clone https://github.com/pbom-dev/OSCAR.git oscar-repo
+
+      - name: Create content
+        run: python ./oscar-repo/helpers/create_pbom_release.py --source ./oscar-repo/content/oscar/ --dest ./src
+
+      - name: Bump version minor
+        run: | 
+          git config user.email "you@ox.security"
+          git config user.name "Github Actions"
+          npm version minor
+          
+      - name: build
+        run: | 
+          npm i
+          npm run build
+          npm run test
+
+      - name: Publish to npm Registry
+        run: | 
+          npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+
+      - name: Push bump version
+        run: |
+          git push origin main --follow-tags --force

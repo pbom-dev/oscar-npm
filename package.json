@@ -1,0 +1,32 @@
+{
+  "name": "oscar-test-max",
+  "version": "1.1.0",
+  "description": "A comprehensive, systematic and actionable way to understand attacker behaviors and techniques with respect to the software supply chain",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "jest",
+    "build": "tsc -p ."
+  },
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pbom-dev/OSCAR.git"
+  },
+  "author": "OX Security",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pbom-dev/OSCAR/issues"
+  },
+  "homepage": "https://github.com/pbom-dev/OSCAR#readme",
+  "files": [
+    "lib"
+  ],
+  "devDependencies": {
+    "@types/jest": "^29.4.0",
+    "@types/node": "^17.0.45",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.5.4",
+    "jest": "^29.4.3",
+    "ts-jest": "^29.0.5"
+  }
+}
