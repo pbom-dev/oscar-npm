@@ -1,9 +1,10 @@
 import fs from "fs";
-import { FlatTechniques, Tactic, Technique } from "./types";
+import { FlatTechniques, OscarMatrix, Tactic, Technique } from "./types";
 
 let oscarMatrix: any = [];
 let flatTechniques: any = {};
-const getOscarMatrix = () => {
+
+const getOscarMatrix = (): OscarMatrix => {
   if (oscarMatrix.length === 0) {
     const data = fs.readFileSync(`${__dirname}/pbom_data/matrix.json`, "utf8");
     oscarMatrix = JSON.parse(data);
@@ -12,14 +13,14 @@ const getOscarMatrix = () => {
   return Object.assign({}, oscarMatrix);
 };
 
-export const getFlatTechniques = () => {
+export const getFlatTechniques = (): FlatTechniques => {
   if (Object.keys(flatTechniques).length === 0) {
     const matrix = getOscarMatrix();
     flatTechniques = Object.keys(matrix).reduce(
       (flatTechnique: FlatTechniques, tacticId: string) => {
         const tactic = matrix[tacticId];
 
-        tactic.items.forEach((technique: Technique) => {
+        tactic.techniques.forEach((technique: Technique) => {
           flatTechnique[technique.id] = technique;
         });
 
@@ -32,9 +33,9 @@ export const getFlatTechniques = () => {
   return Object.assign({}, flatTechniques);
 };
 
-const getOscarTechnique = (technique: string) => {
+const getOscarTechnique = (techniqueId: string): Technique => {
   const matrix = getFlatTechniques();
-  return matrix[technique];
+  return matrix[techniqueId];
 };
 
 export { getOscarMatrix, getOscarTechnique };

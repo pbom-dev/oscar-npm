@@ -1,19 +1,18 @@
 export interface Technique {
   id: number;
-  name: string;
-  description: string;
-  tacticId: number;
+  [key: string]: unknown;
 }
 
 export interface Tactic {
   id: number;
-  name: string;
-  description: string;
   techniques: Technique[];
+  [key: string]: unknown;
 }
 
 export interface FlatTechniques {
   [key: string]: Technique;
 }
 
-export type OscarMatrix = Tactic[];
+export interface OscarMatrix {
+  [key: string]: Tactic;
+}
