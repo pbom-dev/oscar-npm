@@ -45,7 +45,7 @@ jobs:
 
       - name: Publish to npm Registry
         run: | 
-          npm publish
+          npm publish --access=public
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
 
