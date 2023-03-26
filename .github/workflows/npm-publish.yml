@@ -23,18 +23,20 @@ jobs:
           node-version: 16
           registry-url: https://registry.npmjs.org/
 
-      - name: Clone public library
-        run: git clone https://github.com/pbom-dev/OSCAR.git oscar-repo
-
-      - name: Create content
-        run: python ./oscar-repo/helpers/create_pbom_release.py --source ./oscar-repo/content/oscar/ --dest ./src
-
       - name: Bump version minor
         run: | 
           git config user.email "you@ox.security"
           git config user.name "Github Actions"
           npm version minor
           
+      - name: Clone public library
+        run: git clone https://github.com/pbom-dev/OSCAR.git oscar-repo
+
+      - name: Create content
+        run: | 
+          python ./oscar-repo/helpers/create_pbom_release.py --source ./oscar-repo/content/oscar/ --dest ./src
+          rm -rf ./oscar-repo
+
       - name: build
         run: | 
           npm i
