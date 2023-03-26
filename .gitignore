@@ -18,3 +18,4 @@ coverage
 
 #pbom_data is cloned from public osc&r repo on npm-publish action
 src/pbom_data
+oscar-repo
