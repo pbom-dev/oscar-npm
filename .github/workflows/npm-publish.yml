@@ -32,6 +32,7 @@ jobs:
       - name: build
         run: | 
           npm i
+          npm run build
           npm run test
           
       - name: Bump version minor
@@ -40,11 +41,11 @@ jobs:
           git config user.name "Github Actions"
           npm version minor
 
-      - name: Publish to npm Registry
-        run: | 
-          npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+      # - name: Publish to npm Registry
+      #   run: | 
+      #     npm publish
+      #   env:
+      #     NODE_AUTH_TOKEN: ${{secrets.npm_token}}
 
       - name: Push bump version
         run: |
