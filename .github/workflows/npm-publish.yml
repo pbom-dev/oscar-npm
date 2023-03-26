@@ -24,7 +24,7 @@ jobs:
           registry-url: https://registry.npmjs.org/
 
       - name: Clone public library
-        run: git clone git@github.com:pbom-dev/OSCAR.git oscar-repo
+        run: git clone https://github.com/pbom-dev/OSCAR.git oscar-repo
 
       - name: Create content
         run: python ./oscar-repo/helpers/create_pbom_release.py --source ./oscar-repo/content/oscar/ --dest ./src
