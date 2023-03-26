@@ -29,17 +29,17 @@ jobs:
       - name: Create content
         run: python ./oscar-repo/helpers/create_pbom_release.py --source ./oscar-repo/content/oscar/ --dest ./src
 
-      - name: build
-        run: | 
-          npm i
-          npm run build
-          npm run test
-          
       - name: Bump version minor
         run: | 
           git config user.email "you@ox.security"
           git config user.name "Github Actions"
           npm version minor
+          
+      - name: build
+        run: | 
+          npm i
+          npm run build
+          npm run test
 
       - name: Publish to npm Registry
         run: | 
