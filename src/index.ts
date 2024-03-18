@@ -17,11 +17,11 @@ export const getFlatTechniques = (): FlatTechniques => {
   if (Object.keys(flatTechniques).length === 0) {
     const matrix = getOscarMatrix();
     flatTechniques = Object.keys(matrix).reduce(
-      (flatTechnique: FlatTechniques, tacticId: string) => {
-        const tactic: Tactic = matrix[tacticId];
+      (flatTechnique: FlatTechniques, tacticName: string) => {
+        const tactic: Tactic = matrix[tacticName];
 
         tactic.techniques.forEach((technique: Technique) => {
-          flatTechnique[technique.id] = technique;
+          flatTechnique[technique.id] = { ...technique, tacticName };
         });
 
         return flatTechnique;
